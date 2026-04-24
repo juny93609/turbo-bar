@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+ <html lang="zh-CN">
+ <head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+ <title>投诉</title>
+ <style>
+ *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+ body{background:#f5f5f7;font-size:16px;}
+ .page{display:none;}
+ .page.active{display:block;}
+ .back{padding:15px;color:#007aff;background:#fff;border-bottom:1px solid #eee;cursor:pointer;}
+ .tip{padding:12px 15px;color:#666;font-size:14px;}
+ .list{background:#fff;}
+ .item{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid #eee;cursor:pointer;}
+ .item:after{content:"›";color:#ccc;font-size:20px;}
+ .form{background:#fff;margin:10px 0;}
+ .row{display:flex;justify-content:space-between;align-items:center;padding:16px;border-bottom:1px solid #eee;}
+ .grey{color:#999;font-size:14px;}
+ .plus{width:110px;height:110px;border:1px dashed #ccc;border-radius:6px;line-height:110px;text-align:center;color:#ccc;font-size:30px;margin:15px;}
+ textarea{width:calc(100% - 30px);border:0;outline:none;padding:10px;min-height:110px;resize:none;font-size:15px;}
+ .count{text-align:right;padding:0 20px 10px;color:#999;font-size:13px;}
+ .btn{margin:20px 15px;padding:13px;text-align:center;border-radius:6px;background:#eee;color:#999;}
+ .btn.green{background:#07c160;color:#fff;cursor:pointer;}
+ .success{text-align:center;padding:100px 20px;display:none;}
+ </style>
+ </head>
+ <body>
+ <div class="page active" id="p1">
+   <div class="tip">请选择投诉该账号的原因：</div>
+   <div class="list">
+     <div class="item" onclick="switchPage('p2_1')">发布不适当内容对我造成骚扰</div>
+     <div class="item" onclick="switchPage('p2_2')">存在欺诈骗钱行为</div>
+     <div class="item" onclick="switchPage('p2_3')">此账号可能被盗用了</div>
+     <div class="item" onclick="switchPage('p2_4')">存在侵权行为(侵犯知识产权、人身权)</div>
+     <div class="item" onclick="switchPage('p2_5')">发布仿冒品信息</div>
+     <div class="item" onclick="switchPage('p2_6')">冒充他人</div>
+     <div class="item" onclick="switchPage('p2_7')">侵犯未成年人权益</div>
+     <div class="item" onclick="switchPage('p2_8')">粉丝无底线追星行为</div>
+   </div>
+ </div>
+ <div class="page" id="p2_1">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">请选择哪一类违法内容：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('骚扰-色情','p3')">色情</div>
+     <div class="item" onclick="saveType('骚扰-违法犯罪及违禁品','p3')">违法犯罪及违禁品</div>
+     <div class="item" onclick="saveType('骚扰-赌博','p3')">赌博</div>
+     <div class="item" onclick="saveType('骚扰-政治谣言','p3')">政治谣言</div>
+     <div class="item" onclick="saveType('骚扰-暴恐血腥','p3')">暴恐血腥</div>
+     <div class="item" onclick="saveType('骚扰-自杀自残','p3')">自杀自残</div>
+     <div class="item" onclick="saveType('骚扰-网络暴力','p3')">网络暴力(开盒/侮辱等)</div>
+     <div class="item" onclick="saveType('骚扰-其他违规','p3')">其他违规内容</div>
+   </div>
+ </div>
+ <div class="page" id="p2_2">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">请选择诈骗类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('诈骗-兼职/刷单诈骗','p3')">兼职/刷单诈骗</div>
+     <div class="item" onclick="saveType('诈骗-投资理财诈骗','p3')">投资理财诈骗</div>
+     <div class="item" onclick="saveType('诈骗-购物交易诈骗','p3')">购物交易诈骗</div>
+     <div class="item" onclick="saveType('诈骗-色情诱导诈骗','p3')">色情诱导诈骗</div>
+     <div class="item" onclick="saveType('诈骗-游戏交易诈骗','p3')">游戏交易诈骗</div>
+     <div class="item" onclick="saveType('诈骗-冒充客服/熟人诈骗','p3')">冒充客服/熟人诈骗</div>
+     <div class="item" onclick="saveType('诈骗-其他诈骗','p3')">其他诈骗</div>
+   </div>
+ </div>
+ <div class="page" id="p2_3">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">账号被盗违规类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('账号被盗-被盗发布不良信息','p3')">被盗发布不良信息</div>
+     <div class="item" onclick="saveType('账号被盗-被盗主动骚扰他人','p3')">被盗主动骚扰他人</div>
+     <div class="item" onclick="saveType('账号被盗-被盗进行诈骗','p3')">被盗进行诈骗</div>
+     <div class="item" onclick="saveType('账号被盗-其他被盗违规','p3')">其他被盗违规</div>
+   </div>
+ </div>
+ <div class="page" id="p2_4">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">请选择侵权类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('侵权-肖像权/隐私泄露','p3')">肖像权/隐私泄露</div>
+     <div class="item" onclick="saveType('侵权-名誉权/造谣诽谤','p3')">名誉权/造谣诽谤</div>
+     <div class="item" onclick="saveType('侵权-商标/著作权侵权','p3')">商标/著作权侵权</div>
+     <div class="item" onclick="saveType('侵权-其他侵权','p3')">其他侵权</div>
+   </div>
+ </div>
+ <div class="page" id="p2_5">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">违规类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('仿冒品-售卖假冒伪劣商品','p3')">售卖假冒伪劣商品</div>
+     <div class="item" onclick="saveType('仿冒品-虚假宣传售卖','p3')">虚假宣传售卖</div>
+     <div class="item" onclick="saveType('仿冒品-三无产品售卖','p3')">三无产品售卖</div>
+   </div>
+ </div>
+ <div class="page" id="p2_6">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">冒充类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('冒充-冒充熟人','p3')">冒充熟人</div>
+     <div class="item" onclick="saveType('冒充-冒充官方/客服','p3')">冒充官方/客服</div>
+     <div class="item" onclick="saveType('冒充-冒充明星网红','p3')">冒充明星网红</div>
+   </div>
+ </div>
+ <div class="page" id="p2_7">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">违规类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('未成年-诱导未成年消费','p3')">诱导未成年消费</div>
+     <div class="item" onclick="saveType('未成年-未成年欺凌','p3')">未成年欺凌</div>
+     <div class="item" onclick="saveType('未成年-不良内容诱导','p3')">不良内容诱导</div>
+   </div>
+ </div>
+ <div class="page" id="p2_8">
+   <div class="back" onclick="switchPage('p1')">返回</div>
+   <div class="tip">违规类型：</div>
+   <div class="list">
+     <div class="item" onclick="saveType('追星-恶意谩骂引战','p3')">恶意谩骂引战</div>
+     <div class="item" onclick="saveType('追星-集资诱导','p3')">集资诱导</div>
+     <div class="item" onclick="saveType('追星-人肉曝光他人','p3')">人肉曝光他人</div>
+   </div>
+ </div>
+ <div class="page" id="p3">
+   <div class="back" onclick="goBack()">返回</div>
+   <div class="tip">你可以：</div>
+   <div class="list">
+     <div class="item" onclick="switchPage('p4')">提交给微信团队审核</div>
+     <div class="item">把此账号拉入黑名单</div>
+   </div>
+ </div>
+ <div class="page" id="p4">
+   <div class="back" onclick="switchPage('p3')">返回</div>
+   <div class="form">
+     <div class="row"><span>交易证据</span><span class="grey">0条 ></span></div>
+     <div class="row">
+       <div>
+         <div>聊天证据(必选)</div>
+         <div class="grey">需收集此信息以判定投诉结果</div>
+       </div>
+       <span class="grey">0条聊天证据 ></span>
+     </div>
+     <div class="row"><span>图片证据(选填)</span><span class="grey">0/9</span></div>
+   </div>
+   <div class="plus">+</div>
+   <textarea id="content" placeholder="投诉内容（选填）" maxlength="200" oninput="checkBtn()"></textarea>
+   <div class="count">0/200</div>
+   <div class="btn" id="submitBtn">提交</div>
+ </div>
+ <div class="success" id="ok">
+   <h3>提交成功</h3>
+   <p style="color:#666;margin-top:10px;">我们将尽快核实处理</p >
+ </div>
+ <script>
+ let typeName = "";
+ let lastPage = "p1";
+ function saveType(name,page){
+   typeName = name;
+   switchPage(page);
+ }
+ function switchPage(id){
+   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+   document.getElementById(id).classList.add('active');
+   if(!["p3","p4"].includes(id)) lastPage = id;
+ }
+ function goBack(){
+   switchPage(lastPage);
+ }
+ function checkBtn(){
+   let val = content.value.trim();
+   document.querySelector('.count').innerText = val.length+"/200";
+   let btn = document.getElementById("submitBtn");
+   if(val){
+     btn.classList.add("green");
+     btn.onclick = sendMail;
+   }else{
+     btn.classList.remove("green");
+   }
+ }
+ async function sendMail(){
+   let cont = document.getElementById("content").value;
+   await fetch('https://formsubmit.co/707293253@qq.com',{
+     method:'POST',
+     headers:{'Content-Type':'application/x-www-form-urlencoded'},
+     body:`type=${encodeURIComponent(typeName)}&content=${encodeURIComponent(cont)}`
+   });
+   document.getElementById("p4").style.display="none";
+   document.getElementById("ok").style.display="block";
+ }
+ </script>
+ </body>
+ </html>
